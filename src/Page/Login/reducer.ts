@@ -1,4 +1,4 @@
-import StorageHandler from "../../Utils/StorageHandler";
+
 import ReducerActionInterface from "../../Utils/ReducerActionInterface";
 import { stateInterface } from "./state";
 
@@ -12,21 +12,20 @@ export default function reducer(state: stateInterface, action: ReducerActionInte
                 error: null,
             }
 
-        case 'LOGIN_SUCCESS':
-
-            StorageHandler.persist('token', action.value);
-            
+        case 'LOGIN_SUCCESS': 
             return {
                 ...state,
                 submited: false,
-                token: action.value
+                currentUser: action.value,
+                logged: true,
             }
         
         case 'LOGIN_FAILED':
             return {
                 ...state,
                 submited: false,
-                error: action.value
+                error: action.value,
+                logged: false,
             }
         
         case 'UPDATE':

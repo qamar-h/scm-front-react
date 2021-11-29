@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { addToken } from './Http/RequestInterceptor';
+
+addToken();
 
 ReactDOM.render(
   <React.StrictMode>

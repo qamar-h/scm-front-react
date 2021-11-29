@@ -5094,3 +5094,11 @@ ul {
 .text-orange-red {
   color: #ff0000;
 }
+
+.entity-adding-button {
+  width:200px;
+  float:right;
+  text-align: center;
+  margin-top: -45px;
+  background: green;
+}

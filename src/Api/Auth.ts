@@ -1,12 +1,14 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
+import UserAuthenticated from '../Auth/UserAuthenticated';
 import credentialsInterface from '../Page/Login/credentialsInterface';
 import StorageHandler from '../Utils/StorageHandler';
 
 const { REACT_APP_API_URL } = process.env
 const AUTHENTICATION_URI = '/authentication';
 
-export interface authenticationResponse {
-    data: {token: string};
+export interface authenticationResponse 
+{
+    data: UserAuthenticated;
 }
 
 /**
@@ -22,8 +24,9 @@ export function authentication(credentials: credentialsInterface)
     });
 }
 
-export function logout(navigate: any): void
+export function logout(): void
 {
-    StorageHandler.remove('token');
-    navigate('/login');
+    console.log('iciiiciccici');
+    StorageHandler.remove('scm_current_logged');
+    document.location.href="/login";
 }

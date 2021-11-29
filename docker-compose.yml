@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+
+  scm-front:
+    container_name: scm-front
+    build: .docker/
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
+

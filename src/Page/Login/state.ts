@@ -1,16 +1,16 @@
+import UserAuthenticated from "../../Auth/UserAuthenticated";
+
 export interface stateInterface {
     submited: boolean;
-    token: string;
-    login: string;
-    password: string;
     error: string | null;
+    logged: false;
+    currentUser: UserAuthenticated | null
 }
 
 export const state: stateInterface = {
     submited: false,
-    token:'',
-    login: '',
-    password: '',
     error: null,
+    logged: false,
+    currentUser: null,
 }
 

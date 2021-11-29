@@ -8,14 +8,12 @@ const REDIRECT_URI_AFTER_LOGIN_SUCCESS = "/dashboard";
 
 export default class service {
 
-    navigate: any;
     dispatch: any;
     state: stateInterface;
 
-    constructor(state: stateInterface, dispatch: any, navigate: any) {
+    constructor(state: stateInterface, dispatch: any) {
         this.dispatch = dispatch;
         this.state = state;
-        this.navigate = navigate;
     }
 
     /**
@@ -23,7 +21,7 @@ export default class service {
      * @param e 
      * @returns 
      */
-    public submit(data: credentialsInterface): void
+    submit(data: credentialsInterface): void
     {
         this.dispatch({type: "SUBMITED", value: true});
 
@@ -37,11 +35,13 @@ export default class service {
 
         authentication(data)
             .then((res: authenticationResponse) => {
-                this.dispatch({type: "LOGIN_SUCCESS", value: res.data.token});
-                this.navigate(REDIRECT_URI_AFTER_LOGIN_SUCCESS);
+                this.dispatch({type: "LOGIN_SUCCESS", value: res.data});
             })
             .catch((error: ErrorResponse) => {
-                this.dispatch({type: "LOGIN_FAILED", value: error.response.data.message});
+                this.dispatch({
+                    type: "LOGIN_FAILED", 
+                    value: error.response.data.message || "An error occured!"
+                });
             });
 
     }
@@ -51,7 +51,7 @@ export default class service {
      * Verify if credentials completed
      * @returns 
      */
-    private credentialsCompleted(data: credentialsInterface): boolean
+    credentialsCompleted(data: credentialsInterface): boolean
     {
         if(data.login === '' || data.password === '') {
             return false;

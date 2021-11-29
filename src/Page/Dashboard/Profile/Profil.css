@@ -1,0 +1,14 @@
+.profil-image{
+    overflow: hidden;
+    border-radius: 50%;
+    max-width: 250px;
+    margin: auto
+  }
+  
+  .profile-informations{
+    text-align: center;
+  }
+  
+  .profile-informations h3{
+    margin-top:20px;
+  }

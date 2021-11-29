@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from '../../../logo1.jpg';
 import { logout } from '../../../Api/Auth';
-import { useNavigate } from 'react-router';
-
-import defaultAvatar from '../../../default-avatar.jpg';
+import { Link } from 'react-router-dom';
+import AuthContext from "../../../Auth/Context";
 
 export default function Header()
 {
-    const navigate = useNavigate();
+    console.log('header rendered');
+
+    const [ authState ] = useContext(AuthContext);
+
+    const getUserData = (dataKey: string) => {
+        
+        const { token } = authState;
+        
+        if (typeof token === 'undefined' || token == '') {
+            return '';
+        }
+
+        //@ts-ignore
+        return authState[dataKey] ?? '';
+    }
 
     return (<div className="navbar navbar-expand-md header-menu-one bg-light">
         <div className="nav-bar-header-one">
             <div className="header-logo">
-                <a href="/">
+                <Link to={"/dashboard"}>
                     <img src={logo} alt="scm-logo" />
-                </a>
+                </Link>
             </div>
             <div className="toggle-button sidebar-toggle">
                 <button type="button" className="item-link">
@@ -42,21 +55,27 @@ export default function Header()
                     <a className="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                         aria-expanded="false">
                         <div className="admin-title">
-                            <h5 className="item-title">Qamar HAYAT</h5>
-                            <span>Admin</span>
+                            <h5 className="item-title">{getUserData('fullname')}</h5>
+                            <span>{getUserData('email')}</span>
                         </div>
                         <div className="admin-img">
-                            <img src={defaultAvatar} alt="Admin" />
+                            <img src={process.env.REACT_APP_API_FILE_PATH + authState.avatar} alt={getUserData('fullname')} />
                         </div>
                     </a>
                     <div className="dropdown-menu dropdown-menu-right">
                         <div className="item-header">
-                            <h6 className="item-title">Qamar HAYAT</h6>
+                            <h6 className="item-title">{getUserData('fullname')}</h6>
                         </div>
                         <div className="item-content">
                             <ul className="settings-list">
-                                <li><a href="#"><i className="flaticon-user"></i>Mon profil</a></li>
-                                <li><a onClick={() => logout(navigate) }><i className="flaticon-turn-off"></i>Déconnexion</a></li>
+                                <li>
+                                    <Link to={"/dashboard/profil"}>
+                                        <i className="flaticon-user"></i>Mon profil
+                                    </Link>
+                                </li>
+                                <li>
+                                    <a onClick={() => logout() }><i className="flaticon-turn-off"></i>Déconnexion</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
