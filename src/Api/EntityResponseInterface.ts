@@ -1,7 +1,6 @@
-export default interface EntityResponseInterface
-{
+export default interface EntityResponseInterface {
     data: {
-        "hydra:member": any[],
-        "hydra:totalItems": number,
+        'hydra:member': any[],
+        'hydra:totalItems': number,
     }
-}
+};
